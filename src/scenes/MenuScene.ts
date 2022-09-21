@@ -131,8 +131,6 @@ export default class MenuScene extends Container implements IScene {
       },
     });
 
-    console.log('btnSound', btnSound, Manager.loadedConfig)
-
     btnSound.x = this.menuFrame.getBounds().left;
     btnSound.y = this.menuFrame.getBounds().top + 140;
     btnSound.btnIcon.visible = Manager.loadedConfig.sound || true;

@@ -52,14 +52,9 @@ export default class FinishScene extends Container implements IScene {
   constructor(moves: number, totalMoves: number) {
     super();
 
-    Manager.loadedConfig.levels.push({
-      tubesConfig: MainScene.stack,
-      tubes: MainScene.filledTubes,
-    });
-
     LocalStorage.setItem(Manager.gameSettings, {
       ...Manager.loadedConfig,
-      currentLevel: Manager.loadedConfig.levels.length -1,
+      currentLevel: Manager.loadedConfig.levels.length + 1,
       levels: Manager.loadedConfig.levels,
     });
 

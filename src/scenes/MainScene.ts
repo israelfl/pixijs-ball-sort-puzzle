@@ -1,4 +1,6 @@
 import { Container } from "pixi.js";
+import { Sound } from "@pixi/sound";
+import { LocalStorage } from "ts-localstorage";
 import { IScene, Manager } from "../Manager";
 import {
   filledTubesDef,
@@ -6,12 +8,10 @@ import {
   getRandomCircles,
   tubesConfigDef,
 } from "../recipes/Utils";
-import { Sound } from "@pixi/sound";
 import FinishScene from "./FinishScene";
 import Background from "../components/Background";
 import TestTube from "../components/TestTube";
 import HeaderButtons from "../components/HeaderButtons";
-
 type tubeStatusDef = {
   inUse: number;
   tubeIndex: number;
@@ -34,15 +34,35 @@ export default class MainScene extends Container implements IScene {
   constructor() {
     super();
 
+
     MainScene.testTubes = [];
 
-    MainScene.stack = {
-      tubeStack: 4,
-      circleColors: getRandomCircles(4),
-      moves: 0,
-    };
+    console.log('pp', Manager.loadedConfig.levels[Manager.loadedConfig.currentLevel-1])
+    if(Manager.loadedConfig.levels.length && Manager.loadedConfig.levels[Manager.loadedConfig.currentLevel-1] !== undefined){
+      MainScene.stack = Manager.loadedConfig.levels[Manager.loadedConfig.levels.length-1].tubesConfig;
+      MainScene.stack.moves = 0
 
-    MainScene.filledTubes = fillTubes(MainScene.stack);
+      MainScene.filledTubes = Manager.loadedConfig.levels[Manager.loadedConfig.levels.length-1].tubes
+    } else {
+      MainScene.stack = {
+        tubeStack: 4,
+        circleColors: getRandomCircles(4),
+        moves: 0,
+      };
+
+      MainScene.filledTubes = fillTubes(MainScene.stack);
+
+      Manager.loadedConfig.levels.push({
+        tubesConfig: MainScene.stack,
+        tubes: MainScene.filledTubes,
+      });
+
+      LocalStorage.setItem(Manager.gameSettings, {
+        ...Manager.loadedConfig,
+        levels: Manager.loadedConfig.levels,
+      });
+
+    }
 
     this.background = new Background();
     this.addChild(this.background);

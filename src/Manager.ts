@@ -32,7 +32,7 @@ export class Manager {
   public static defaultConfig: GameConfig = {
     background: { name: "bg-night", mode: "topcolor", bgcolor: 0x2e0f31 },
     sound: true,
-    currentLevel: 0,
+    currentLevel: 1,
     levels: []
   };
   public static loadedConfig: GameConfig = Manager.defaultConfig;

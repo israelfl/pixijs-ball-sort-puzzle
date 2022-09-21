@@ -75,6 +75,7 @@ export default class HeaderButtons extends Container implements IScene {
     this.btnAddTube.x = width - this.btnAddTube.width;
     this.btnUndo.x = this.btnAddTube.getBounds().left - this.btnUndo.width;
     this.undoCount.x = this.btnUndo.getBounds().right - 30;
+    this.levelText.x = Manager.width / 2;
   }
 
   showMenu(_e: InteractionEvent): void {
