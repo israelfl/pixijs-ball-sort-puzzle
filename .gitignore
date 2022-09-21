@@ -2,3 +2,7 @@
 .cache
 dist
 node_modules
+
+# Lock-files
+package-lock.json
+yarn.lock

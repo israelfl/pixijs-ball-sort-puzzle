@@ -1,0 +1,26 @@
+import { backgroundAssets } from "./background-assets";
+export const assets = [
+  ...backgroundAssets,
+  { name: "test-tube", url: "./test-tube.png" },
+  { name: "button-menu", url: "./button-menu.png" },
+  { name: "button-reload", url: "./button-reload.png" },
+  { name: "button-undo", url: "./button-undo.png" },
+  { name: "button-add-tube", url: "./button-add-tube.png" },
+  { name: "button-next", url: "./button-next.png" },
+  { name: "button-close", url: "./button-close.png" },
+  { name: "button-sound-on", url: "./button-sound-on.png" },
+  { name: "button-sound-off", url: "./button-sound-off.png" },
+  { name: "button-level", url: "./button-level.png" },
+  { name: "button-back", url: "./button-back.png" },
+  { name: "button-shop", url: "./button-shop.png" },
+  { name: "button-language", url: "./button-language.png" },
+  { name: "gift", url: "./gift.png" },
+  { name: "gift-mask", url: "./gift-mask.png" },
+  { name: "back-star", url: "./back-star.png" },
+  // { name: "fx-tube-completed", url: "./tube-completed.mp3" },
+  // { name: "fx-click", url: "./click.mp3" },
+
+  { name: "Clampy from assets.ts!", url: "./clampy.png" },
+  { name: "whistle", url: "./whistle.mp3" },
+  { name: "clouds", url: "./clouds.png" },
+];
