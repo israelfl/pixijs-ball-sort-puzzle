@@ -112,7 +112,7 @@ export class Manager {
     Manager.app.stage.addChild(Manager.currentScene);
   }
 
-  // Call this function when you want to go a new scene
+  // Call this function when you want reset entire game.
   public static destroyApp(): void {
     Manager.app.destroy();
     Manager.initialize(0xffffff);

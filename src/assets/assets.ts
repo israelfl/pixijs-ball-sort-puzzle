@@ -14,6 +14,8 @@ export const assets = [
   { name: "button-back", url: "./button-back.png" },
   { name: "button-shop", url: "./button-shop.png" },
   { name: "button-language", url: "./button-language.png" },
+  { name: "button-down", url: "./button-down.png" },
+  { name: "button-up", url: "./button-up.png" },
   { name: "gift", url: "./gift.png" },
   { name: "gift-mask", url: "./gift-mask.png" },
   { name: "back-star", url: "./back-star.png" },

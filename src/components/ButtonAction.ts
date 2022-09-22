@@ -51,7 +51,7 @@ export default class ButtonAction extends Container implements IScene {
     this.btnText.style = this.textStyle;
     this.btnText.x = this.btnIcon.getBounds().right + 10;
     this.btnText.y =
-      this.btnIcon.getBounds().height / 2 - this.btnText.height / 2;
+      (this.btnIcon.getBounds().height / 2 - this.btnText.height / 2) - 5;
     this.buttonContainer.addChild(this.btnText);
 
     this.buttonContainer.interactive = true;

@@ -1,4 +1,5 @@
 import { sound } from "@pixi/sound";
+import { LocalStorage } from "ts-localstorage";
 import {
   Container,
   Graphics,
@@ -8,7 +9,7 @@ import {
 } from "pixi.js";
 import { IScene, Manager } from "../Manager";
 import ButtonAction from "../components/ButtonAction";
-import { LocalStorage } from "ts-localstorage";
+import LevelScene from "./LevelScene";
 
 export default class MenuScene extends Container implements IScene {
   private bg: Sprite = new Sprite(Texture.WHITE);
@@ -83,9 +84,7 @@ export default class MenuScene extends Container implements IScene {
       buttonText: "Level",
       toggleIcon: "button-level",
       action: (_e: InteractionEvent) => {
-        console.log("Level");
-
-        //Manager.changeScene()
+        Manager.changeScene(new LevelScene());
       },
     });
 
@@ -108,7 +107,7 @@ export default class MenuScene extends Container implements IScene {
     });
 
     btnShop.x = this.menuFrame.getBounds().left;
-    btnShop.y = this.menuFrame.getBounds().top + 70;
+    btnShop.y = this.menuFrame.getBounds().top + 90;
 
     this.addChild(btnShop);
   }
@@ -121,8 +120,8 @@ export default class MenuScene extends Container implements IScene {
       toggleIcon: "button-sound-off",
       action: (_e: InteractionEvent, obj: any) => {
         const muteSoundResult = sound.toggleMuteAll();
-        LocalStorage.setItem(Manager.gameSettings, {...Manager.loadedConfig,
-          background: {...Manager.loadedConfig.background, name: "Juan"},
+        LocalStorage.setItem(Manager.gameSettings, {
+          ...Manager.loadedConfig,
           sound: !muteSoundResult,
         });
         Manager.loadedConfig.sound = !muteSoundResult;
@@ -132,10 +131,9 @@ export default class MenuScene extends Container implements IScene {
     });
 
     btnSound.x = this.menuFrame.getBounds().left;
-    btnSound.y = this.menuFrame.getBounds().top + 140;
+    btnSound.y = this.menuFrame.getBounds().top + 180;
     btnSound.btnIcon.visible = Manager.loadedConfig.sound || true;
     btnSound.btnToggleIcon.visible = !Manager.loadedConfig.sound || false;
-
 
     this.addChild(btnSound);
   }
@@ -153,12 +151,12 @@ export default class MenuScene extends Container implements IScene {
     });
 
     btnLanguage.x = this.menuFrame.getBounds().left;
-    btnLanguage.y = this.menuFrame.getBounds().top + 210;
+    btnLanguage.y = this.menuFrame.getBounds().top + 270;
 
     this.addChild(btnLanguage);
   }
 
   closeMenu(_e: InteractionEvent): void {
-    this.visible = !this.visible;
+    this.destroy()
   }
 }

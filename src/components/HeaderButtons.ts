@@ -25,7 +25,7 @@ export default class HeaderButtons extends Container implements IScene {
   private btnUndo: Sprite = Sprite.from("button-undo");
   private undoCount: Text = new Text((5).toString());
   private levelText: Text = new Text("LEVEL " +
-    (Manager.loadedConfig.levels.length || 1).toString()
+    (Manager.loadedConfig.currentLevel || 1).toString()
   );
 
   constructor(props: IProps) {

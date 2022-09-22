@@ -34,15 +34,26 @@ export default class MainScene extends Container implements IScene {
   constructor() {
     super();
 
-
     MainScene.testTubes = [];
 
-    console.log('pp', Manager.loadedConfig.levels[Manager.loadedConfig.currentLevel-1])
-    if(Manager.loadedConfig.levels.length && Manager.loadedConfig.levels[Manager.loadedConfig.currentLevel-1] !== undefined){
-      MainScene.stack = Manager.loadedConfig.levels[Manager.loadedConfig.levels.length-1].tubesConfig;
-      MainScene.stack.moves = 0
+    if (
+      Manager.loadedConfig.levels.length &&
+      Manager.loadedConfig.levels[Manager.loadedConfig.currentLevel - 1] !==
+        undefined
+    ) {
+      MainScene.stack =
+        Manager.loadedConfig.levels[
+          Manager.loadedConfig.levels.length - 1
+        ].tubesConfig;
+      MainScene.stack.moves = 0;
 
-      MainScene.filledTubes = Manager.loadedConfig.levels[Manager.loadedConfig.levels.length-1].tubes
+      MainScene.filledTubes =
+        Manager.loadedConfig.levels[
+          Manager.loadedConfig.currentLevel - 1
+        ].tubes;
+
+        console.log('cargo escena', MainScene.filledTubes);
+
     } else {
       MainScene.stack = {
         tubeStack: 4,
@@ -61,7 +72,6 @@ export default class MainScene extends Container implements IScene {
         ...Manager.loadedConfig,
         levels: Manager.loadedConfig.levels,
       });
-
     }
 
     this.background = new Background();
@@ -109,7 +119,7 @@ export default class MainScene extends Container implements IScene {
     });
 
     this.tubeDisplay.x = Manager.width / 2 - this.tubeDisplay.width / 2;
-    this.tubeDisplay.y = (Manager.height / 2 - this.tubeDisplay.height / 2) + 50;
+    this.tubeDisplay.y = Manager.height / 2 - this.tubeDisplay.height / 2 + 50;
     this.addChild(this.tubeDisplay);
   }
 

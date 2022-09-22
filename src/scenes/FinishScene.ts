@@ -54,7 +54,7 @@ export default class FinishScene extends Container implements IScene {
 
     LocalStorage.setItem(Manager.gameSettings, {
       ...Manager.loadedConfig,
-      currentLevel: Manager.loadedConfig.levels.length + 1,
+      currentLevel: Manager.loadedConfig.currentLevel + 1,
       levels: Manager.loadedConfig.levels,
     });
 
