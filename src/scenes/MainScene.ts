@@ -109,7 +109,7 @@ export default class MainScene extends Container implements IScene {
       testTube.x = k * 100;
       if (k > MainScene.stack.circleColors.length / 2) {
         testTube.x = (k - MainScene.stack.circleColors.length / 2 - 1) * 100;
-        testTube.y = 270;
+        testTube.y = 310;
       }
       testTube.scale.x = testTube.scale.y = 0.2;
       this.tubeDisplay.addChild(testTube);
@@ -117,7 +117,7 @@ export default class MainScene extends Container implements IScene {
     });
 
     this.tubeDisplay.x = Manager.width / 2 - this.tubeDisplay.width / 2;
-    this.tubeDisplay.y = Manager.height / 2 - this.tubeDisplay.height / 2 + 50;
+    this.tubeDisplay.y = Manager.height / 2 - this.tubeDisplay.height / 2 + 40;
     this.addChild(this.tubeDisplay);
   }
 
