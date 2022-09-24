@@ -1,9 +1,25 @@
-import { Container, InteractionEvent, Sprite, Texture } from "pixi.js";
+import {
+  Container,
+  InteractionEvent,
+  Sprite,
+  Text,
+  TextStyle,
+  Texture,
+} from "pixi.js";
 import { Easing, Tween } from "tweedle.js";
 import { IScene, Manager } from "../Manager";
 import LevelItem from "../components/LevelItem";
 
 export default class LevelScene extends Container implements IScene {
+  private lvlTextStyle = new TextStyle({
+    align: "center",
+    fill: "white",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    fontSize: 40,
+    fontWeight: "bolder",
+    stroke: "black",
+    strokeThickness: 4,
+  });
   private bg: Sprite = new Sprite(Texture.WHITE);
   private topBg: Sprite = new Sprite(Texture.WHITE);
   private backBtn: Sprite = Sprite.from("button-back");
@@ -12,6 +28,7 @@ export default class LevelScene extends Container implements IScene {
   private lvlFrame: Container = new Container();
   private topFrame: Container = new Container();
   private lvlMoving: boolean = false;
+  private lvlText: Text = new Text("LEVEL");
 
   constructor() {
     super();
@@ -30,6 +47,7 @@ export default class LevelScene extends Container implements IScene {
     this.drawBg();
     this.drawTopBg();
     this.drawBackBtn();
+    this.drawLvlText();
     this.drawDownBtn();
     this.drawUpBtn();
     this.drawLevelBtns();
@@ -62,9 +80,16 @@ export default class LevelScene extends Container implements IScene {
     this.topFrame.addChild(this.backBtn);
   }
 
+  drawLvlText(): void {
+    this.lvlText.style = this.lvlTextStyle;
+    this.lvlText.y = this.topBg.height / 2 - this.lvlText.height / 2;
+    this.lvlText.x = this.topBg.width / 2 - this.lvlText.width / 2;
+    this.topFrame.addChild(this.lvlText);
+  }
+
   drawDownBtn(): void {
     this.downBtn.scale.x = this.downBtn.scale.y = 0.5;
-    this.downBtn.x = this.backBtn.width + 20;
+    this.downBtn.x = Manager.width - (this.downBtn.width * 2);
     this.downBtn.y = this.topBg.height / 2 - this.downBtn.height / 2;
     this.downBtn.interactive = true;
     this.downBtn.on("pointertap", this.pageDown, this);
@@ -73,7 +98,7 @@ export default class LevelScene extends Container implements IScene {
 
   drawUpBtn(): void {
     this.upBtn.scale.x = this.upBtn.scale.y = 0.5;
-    this.upBtn.x = this.backBtn.width * 2 + 20;
+    this.upBtn.x = Manager.width - (this.downBtn.width);
     this.upBtn.y = this.topBg.height / 2 - this.upBtn.height / 2;
     this.upBtn.interactive = true;
     this.upBtn.on("pointertap", this.pageUp, this);

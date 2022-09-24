@@ -10,6 +10,7 @@ import {
 import { IScene, Manager } from "../Manager";
 import ButtonAction from "../components/ButtonAction";
 import LevelScene from "./LevelScene";
+import ShopScene from "./ShopScene";
 
 export default class MenuScene extends Container implements IScene {
   private bg: Sprite = new Sprite(Texture.WHITE);
@@ -101,8 +102,7 @@ export default class MenuScene extends Container implements IScene {
       buttonText: "Shop",
       toggleIcon: "button-shop",
       action: (_e: InteractionEvent) => {
-        console.log("Shop");
-        //Manager.changeScene()
+        Manager.changeScene(new ShopScene());
       },
     });
 

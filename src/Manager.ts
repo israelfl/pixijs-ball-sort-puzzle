@@ -2,23 +2,18 @@ import { Application, DisplayObject } from "pixi.js";
 import { sound } from "@pixi/sound";
 import { LocalStorage, LocalKey } from "ts-localstorage";
 import { tubesConfigDef, filledTubesDef } from "./recipes/Utils";
+import { backgroundAssetDef } from "./assets/background-assets";
 
-interface BackgroundSettings {
-  name: string;
-  mode: string;
-  bgcolor?: number;
-}
-
-interface LevelSettings {
+type LevelSettings = {
   tubesConfig: tubesConfigDef;
   tubes: filledTubesDef;
 }
 
-interface GameConfig {
-  background: BackgroundSettings;
+type GameConfig = {
+  background: backgroundAssetDef;
   sound: boolean;
   currentLevel: number;
-  levels: LevelSettings[]
+  levels: LevelSettings[];
 }
 
 export class Manager {
@@ -30,10 +25,16 @@ export class Manager {
   private static app: Application;
   private static currentScene: IScene;
   public static defaultConfig: GameConfig = {
-    background: { name: "bg-night", mode: "topcolor", bgcolor: 0x2e0f31 },
+    background: {
+      name: "bg-default",
+      url: "./backgrounds/01.jpg",
+      bgcolor: 0x0,
+      mode: "tiled",
+      title: "night",
+    },
     sound: true,
     currentLevel: 1,
-    levels: []
+    levels: [],
   };
   public static loadedConfig: GameConfig = Manager.defaultConfig;
 

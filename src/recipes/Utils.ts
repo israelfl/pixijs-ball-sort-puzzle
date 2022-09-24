@@ -134,7 +134,7 @@ export const calculateSize = (
   const resizeResult: resizeDef = {
     newWidth: newWidth,
     newHeight: newHeight,
-    ratio: ratio
+    ratio: ratio,
   };
 
   if (newWidth !== 0) {
@@ -153,4 +153,35 @@ export const calculateSize = (
   }
 
   return resizeResult;
+};
+
+export const getRndInteger = (min:number, max:number): number => {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+export const styledConsole = (): void => {
+  if (navigator.userAgent.toLowerCase().indexOf("chrome") > -1) {
+    let _a;
+    var args = [
+      "\n %c %c %c PixiJS " +
+        "6.3.0" +
+        " - \u2730 " +
+        "WebGL 2" +
+        " \u2730  %c  %c  http://www.pixijs.com/  %c %c \u2665%c\u2665%c\u2665 \n\n",
+      "background: #ff66a5; padding:5px 0;",
+      "background: #ff66a5; padding:5px 0;",
+      "color: #ff66a5; background: #030307; padding:5px 0;",
+      "background: #ff66a5; padding:5px 0;",
+      "background: #ffc3dc; padding:5px 0;",
+      "background: #ff66a5; padding:5px 0;",
+      "color: #ff2424; background: #fff; padding:5px 0;",
+      "color: #ff2424; background: #fff; padding:5px 0;",
+      "color: #ff2424; background: #fff; padding:5px 0;",
+    ];
+    (_a = globalThis.console).log.apply(_a, args);
+  } else if (globalThis.console) {
+    globalThis.console.log(
+      "PixiJS " + "6.3.0" + " - " + "WebGL" + " - http://www.pixijs.com/"
+    );
+  }
 };

@@ -6,6 +6,7 @@ import {
   filledTubesDef,
   fillTubes,
   getRandomCircles,
+  getRndInteger,
   tubesConfigDef,
 } from "../recipes/Utils";
 import FinishScene from "./FinishScene";
@@ -51,13 +52,10 @@ export default class MainScene extends Container implements IScene {
         Manager.loadedConfig.levels[
           Manager.loadedConfig.currentLevel - 1
         ].tubes;
-
-        console.log('cargo escena', MainScene.filledTubes);
-
     } else {
       MainScene.stack = {
-        tubeStack: 4,
-        circleColors: getRandomCircles(4),
+        tubeStack: getRndInteger(3,5),
+        circleColors: getRandomCircles(getRndInteger(8,12)),
         moves: 0,
       };
 

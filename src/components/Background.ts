@@ -1,20 +1,35 @@
 import { Container, Sprite, Texture, TilingSprite } from "pixi.js";
+import { backgroundAssetDef } from "../assets/background-assets";
 import { IScene, Manager } from "../Manager";
 import { calculateSize } from "../recipes/Utils";
 
 export default class Background extends Container implements IScene {
-  private tiledBg: TilingSprite = new TilingSprite(
-    Texture.from(Manager.loadedConfig.background.name),
-    Manager.width,
-    Manager.height
-  );
+  private tiledBg: TilingSprite;
   private colorBg: Sprite = new Sprite(Texture.WHITE);
-  //private bgSprite: Sprite = new TilingSprite(Texture.WHITE);
 
-  constructor() {
+  private backgroundConfig: backgroundAssetDef;
+
+  private bgWidth: number;
+  private bgHeight: number;
+
+  constructor(
+    backgroundConfig: backgroundAssetDef = Manager.loadedConfig.background,
+    width: number = Manager.width,
+    height: number = Manager.height
+  ) {
     super();
 
-    switch (Manager.loadedConfig.background.mode) {
+    this.backgroundConfig = backgroundConfig;
+    this.bgWidth = width;
+    this.bgHeight = height;
+
+    this.tiledBg = new TilingSprite(
+      Texture.from(this.backgroundConfig.name),
+      this.bgWidth,
+      this.bgHeight
+    );
+
+    switch (this.backgroundConfig.mode) {
       case "tiled":
         this.drawTiledBg();
         break;
@@ -30,7 +45,7 @@ export default class Background extends Container implements IScene {
 
   public resize(width: number, height: number): void {
     console.log("resize background");
-    switch (Manager.loadedConfig.background.mode) {
+    switch (this.backgroundConfig.mode) {
       case "tiled":
         // To be a scene we must have the resize method even if we don't use it.
         this.tiledBg.width = width;
@@ -47,7 +62,7 @@ export default class Background extends Container implements IScene {
           115
         );
 
-        this.tiledBg.width = Manager.width;
+        this.tiledBg.width = this.bgWidth;
         this.tiledBg.height = resized.newHeight;
         this.tiledBg.tileScale.x = this.tiledBg.tileScale.y =
           resized.newHeight / this.tiledBg.texture.height;
@@ -62,14 +77,14 @@ export default class Background extends Container implements IScene {
 
   drawTopcolorBg(): void {
     this.colorBg = new Sprite(Texture.WHITE);
-    this.colorBg.width = Manager.width;
-    this.colorBg.height = Manager.height;
-    this.colorBg.tint = Manager.loadedConfig.background.bgcolor || 0x0;
+    this.colorBg.width = this.bgWidth;
+    this.colorBg.height = this.bgHeight;
+    this.colorBg.tint = this.backgroundConfig.bgcolor || 0x0;
     this.addChild(this.colorBg);
 
     this.tiledBg = new TilingSprite(
-      Texture.from(Manager.loadedConfig.background.name),
-      Manager.width,
+      Texture.from(this.backgroundConfig.name),
+      this.bgWidth,
       0
     );
 
@@ -85,27 +100,4 @@ export default class Background extends Container implements IScene {
       resized.newHeight / this.tiledBg.texture.height;
     this.addChild(this.tiledBg);
   }
-
-  // drawTopcolorBg(): void {
-  //   this.colorBg = new Sprite(Texture.WHITE);
-  //   this.colorBg.width = Manager.width;
-  //   this.colorBg.height = Manager.height;
-  //   this.colorBg.tint = Manager.loadedConfig.background.bgcolor || 0x0;
-  //   this.addChild(this.colorBg);
-
-  //   this.bgSprite = Sprite.from(Manager.loadedConfig.background.name);
-
-  //   const resized = calculateSize(
-  //     this.bgSprite.texture.baseTexture.width,
-  //     this.bgSprite.texture.baseTexture.height,
-  //     Manager.width
-  //   );
-
-  //   this.bgSprite.width = resized.newWidth;
-  //   this.bgSprite.height = resized.newHeight;
-
-  //   console.log("resized", resized);
-  //   this.addChild(this.bgSprite);
-
-  // }
 }
