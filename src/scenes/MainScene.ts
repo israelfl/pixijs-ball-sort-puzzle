@@ -44,7 +44,7 @@ export default class MainScene extends Container implements IScene {
     ) {
       MainScene.stack =
         Manager.loadedConfig.levels[
-          Manager.loadedConfig.levels.length - 1
+          Manager.loadedConfig.currentLevel - 1
         ].tubesConfig;
       MainScene.stack.moves = 0;
 
@@ -54,8 +54,8 @@ export default class MainScene extends Container implements IScene {
         ].tubes;
     } else {
       MainScene.stack = {
-        tubeStack: getRndInteger(3,5),
-        circleColors: getRandomCircles(getRndInteger(8,12)),
+        tubeStack: getRndInteger(3, 5),
+        circleColors: getRandomCircles(getRndInteger(8, 12)),
         moves: 0,
       };
 
@@ -146,9 +146,16 @@ export default class MainScene extends Container implements IScene {
       ballColors.shift();
       const uniques = ballColors.filter(onlyUnique);
       return uniques.length === 1;
-    }).length;
+    });
 
-    if (finishedTubes === MainScene.stack.circleColors.length) {
+    console.log({
+      emptyTubes: emptyTubes,
+      "MainScene.stack.circleColors.length":
+        MainScene.stack.circleColors.length,
+      finishedTubes: finishedTubes,
+    });
+
+    if (finishedTubes.length === MainScene.stack.circleColors.length) {
       MainScene.fxCompleted.play();
       Manager.changeScene(
         new FinishScene(
